@@ -9,8 +9,11 @@ export const profile = {
   location: "India",
   email: "27rithu10@gmail.com",
   resumeUrl: "",
-  avatarUrl:
-  "frontend/images/IMG_20251227_130402.jpg",
+  avatarUrl: "frontend/images/IMG_20251227_130402.jpg",
+  cgpa: "9.20",
+  projectsCount: 9,
+  problemsSolved: 270,
+  codolioUrl: "https://codolio.com/profile/Rithu-27",
 };
 
 export const socials = {

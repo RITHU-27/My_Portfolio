@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiArrowDown } from "react-icons/fi";
-import { SiLeetcode, SiHackerrank } from "react-icons/si";
-import { profile, socials } from "../data/portfolio.js";
+import { FiExternalLink } from "react-icons/fi";
+import { profile } from "../data/portfolio.js";
 
 export default function Hero() {
   return (
@@ -19,7 +18,33 @@ export default function Hero() {
           <h2 className="hero__title">{profile.title}</h2>
           <p className="hero__tagline">{profile.tagline}</p>
 
+          {/* Stats Section */}
+          <div className="hero__stats">
+            <div className="stat-card">
+              <h3>{profile.cgpa}</h3>
+              <p>CGPA</p>
+            </div>
+
+            <div className="stat-card">
+              <h3>{profile.projectsCount}+</h3>
+              <p>Projects</p>
+            </div>
+
+            <div className="stat-card">
+              <h3>{profile.problemsSolved}+</h3>
+              <p>Problems Solved</p>
+            </div>
+          </div>
+
           <div className="hero__actions">
+            <a
+              href={profile.codolioUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--secondary"
+            >
+              View Codolio <FiExternalLink />
+            </a>
             <Link to="/projects" className="btn btn--primary">
               View My Work
             </Link>
@@ -28,23 +53,6 @@ export default function Hero() {
             </Link>
           </div>
 
-          <div className="hero__socials">
-            <a href={socials.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-              <FiGithub />
-            </a>
-            <a href={socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <FiLinkedin />
-            </a>
-            <a href={socials.leetcode} target="_blank" rel="noreferrer" aria-label="LeetCode">
-              <SiLeetcode />
-            </a>
-            <a href={socials.hackerrank} target="_blank" rel="noreferrer" aria-label="HackerRank">
-              <SiHackerrank />
-            </a>
-            <a href={socials.email} aria-label="Email">
-              <FiMail />
-            </a>
-          </div>
         </motion.div>
 
         <motion.div
@@ -58,10 +66,6 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
-
-      <Link to="/about" className="hero__scroll" aria-label="Scroll down">
-        <FiArrowDown />
-      </Link>
     </section>
   );
 }
