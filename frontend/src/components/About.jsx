@@ -45,8 +45,7 @@ export default function About() {
                   alt={profile.name}
                   style={{
                     width: "100%",
-                    height: "auto",
-                    filter: "grayscale(1) contrast(1.1) brightness(0.9) sepia(0.2) hue-rotate(185deg) saturate(2)"
+                    height: "auto"
                   }}
                 />
               </div>
