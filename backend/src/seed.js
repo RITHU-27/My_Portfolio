@@ -5,7 +5,7 @@ import Project from "./models/Project.js";
 
 dotenv.config();
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/portfolio";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://27rithu10_db_user:27rithu@cluster.vqwm1ym.mongodb.net/portfolioDB?retryWrites=true&w=majority&appName=Cluster";
 
 const sampleProjects = [
   {
