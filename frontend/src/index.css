@@ -48,6 +48,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 112px;
 }
 
 body {
@@ -93,6 +94,14 @@ img {
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 24px;
+}
+
+main {
+  padding: 140px 0 80px;
+}
+
+.section {
+  scroll-margin-top: 140px;
 }
 
 h1,
@@ -190,7 +199,7 @@ h6 {
 .navbar {
   position: fixed;
   inset: 0 0 auto 0;
-  z-index: 50;
+  z-index: 999;
   border-bottom: 1px solid var(--border);
   background: rgba(3, 8, 22, 0.70);
   backdrop-filter: blur(12px);
@@ -712,6 +721,128 @@ h6 {
   font-size: 0.9rem;
 }
 
+/* DNA Strand Layout */
+.dna-container {
+  position: relative;
+  min-height: calc(420px * 6);
+  padding: 80px 0 140px;
+}
+
+.dna-strand {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  transform: translateX(-50%);
+}
+
+.dna-backbone {
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    var(--primary) 0%, 
+    var(--primary-2) 50%, 
+    var(--primary) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.dna-backbone--left {
+  left: 10px;
+  animation: dnaPulse 3s ease-in-out infinite;
+}
+
+.dna-backbone--right {
+  right: 10px;
+  animation: dnaPulse 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes dnaPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.dna-base-pair {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dna-base {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+  animation: dnaGlow 2s ease-in-out infinite;
+}
+
+.dna-base--a {
+  background: var(--primary);
+  animation-delay: 0s;
+}
+
+.dna-base--t {
+  background: var(--primary-2);
+  animation-delay: 1s;
+}
+
+@keyframes dnaGlow {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% { 
+    transform: scale(1.3);
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
+.dna-projects {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 140px;
+}
+
+.dna-mutation {
+  position: absolute;
+  width: 380px;
+  z-index: 10;
+}
+
+.dna-mutation--left {
+  right: calc(50% + 50px);
+}
+
+.dna-mutation--right {
+  left: calc(50% + 50px);
+}
+
+.dna-connector {
+  position: absolute;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dna-mutation--left .dna-connector {
+  right: 100%;
+  background: linear-gradient(90deg, transparent, var(--primary));
+}
+
+.dna-mutation--right .dna-connector {
+  left: 100%;
+  background: linear-gradient(90deg, var(--primary), transparent);
+}
+
 .project-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -782,13 +913,11 @@ h6 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.8) contrast(1.1) brightness(0.85);
   transition: transform 0.4s ease;
 }
 
 .project-card:hover .project-card__media img {
   transform: scale(1.05);
-  filter: saturate(1) contrast(1) brightness(1);
 }
 
 .project-card__body {
@@ -1034,5 +1163,37 @@ h6 {
 
   .contact__row {
     grid-template-columns: 1fr;
+  }
+
+  /* DNA Layout Responsive */
+  .dna-container {
+    min-height: auto;
+    padding: 20px 0;
+  }
+
+  .dna-strand {
+    display: none;
+  }
+
+  .dna-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .dna-mutation {
+    position: relative;
+    width: 100%;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  .dna-connector {
+    display: none;
+  }
+
+  .dna-mutation .project-card {
+    width: 100%;
   }
 }

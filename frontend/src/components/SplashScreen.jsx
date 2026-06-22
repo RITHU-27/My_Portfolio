@@ -408,7 +408,7 @@ const SplashScreen = ({ onComplete }) => {
                 marginBottom: "4px"
               }}
             >
-              RITHANYAA VARAD HARAJAN
+              RITHANYAA VARADHARAJAN
             </motion.div>
 
             <div

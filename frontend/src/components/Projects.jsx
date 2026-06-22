@@ -8,6 +8,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [status, setStatus] = useState("loading");
   const [isFallback, setIsFallback] = useState(false);
+  const rowHeight = 420;
 
   useEffect(() => {
     let active = true;
@@ -72,44 +73,67 @@ export default function Projects() {
           <p className="projects__msg">No schematics registered. Add some to seed file.</p>
         )}
 
-        <div className="projects__grid">
-          {projects.map((project, i) => (
-            <motion.article
-              className="project-card"
-              key={project._id || project.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-            >
-              {project.imageUrl && (
-                <div className="project-card__media">
-                  <img src={project.imageUrl} alt={project.title} loading="lazy" />
-                </div>
-              )}
-              <div className="project-card__body">
-                <h3 style={{ fontFamily: "var(--font-title)", letterSpacing: "0.5px" }}>{project.title}</h3>
-                <p>{project.description}</p>
-                <ul className="project-card__tags">
-                  {project.techStack?.map((tech) => (
-                    <li key={tech}>{tech}</li>
-                  ))}
-                </ul>
-                <div className="project-card__links">
-                  {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noreferrer">
-                      <FiGithub /> Code
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a href={project.liveUrl} target="_blank" rel="noreferrer">
-                      <FiExternalLink /> Live
-                    </a>
-                  )}
-                </div>
+        <div className="dna-container">
+          {/* DNA Strand */}
+          <div className="dna-strand">
+            <div className="dna-backbone dna-backbone--left"></div>
+            <div className="dna-backbone dna-backbone--right"></div>
+            {projects.map((_, i) => (
+              <div key={i} className="dna-base-pair" style={{ top: `${i * rowHeight + 120}px` }}>
+                <div className="dna-base dna-base--a"></div>
+                <div className="dna-base dna-base--t"></div>
               </div>
-            </motion.article>
-          ))}
+            ))}
+          </div>
+
+          {/* Project Mutations */}
+          <div className="dna-projects">
+            {projects.map((project, i) => (
+              <motion.div
+                key={project._id || project.title}
+                className={`dna-mutation dna-mutation--${i % 2 === 0 ? 'left' : 'right'}`}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                style={{ top: `${i * rowHeight}px` }}
+              >
+                <div className="dna-connector"></div>
+                <motion.article
+                  className="project-card"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {project.imageUrl && (
+                    <div className="project-card__media">
+                      <img src={project.imageUrl} alt={project.title} loading="lazy" />
+                    </div>
+                  )}
+                  <div className="project-card__body">
+                    <h3 style={{ fontFamily: "var(--font-title)", letterSpacing: "0.5px" }}>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <ul className="project-card__tags">
+                      {project.techStack?.map((tech) => (
+                        <li key={tech}>{tech}</li>
+                      ))}
+                    </ul>
+                    <div className="project-card__links">
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noreferrer">
+                          <FiGithub /> Code
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a href={project.liveUrl} target="_blank" rel="noreferrer">
+                          <FiExternalLink /> Live
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.article>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
