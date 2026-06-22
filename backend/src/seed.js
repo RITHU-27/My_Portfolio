@@ -78,7 +78,7 @@ const sampleProjects = [
     githubUrl: "https://github.com/RITHU-27/Trip_mates_XAMPP",
     liveUrl: "",
     featured: true,
-    order: 1,
+    order: 6,
   },
 ];
 
