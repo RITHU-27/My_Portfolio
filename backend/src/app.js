@@ -9,6 +9,7 @@ import messageRoutes from "./routes/messageRoutes.js";
 
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:5173",
+  "https://my-portfolio-green-six-urdxdgycp9.vercel.app",
 ];
 
 const corsOptions = {
