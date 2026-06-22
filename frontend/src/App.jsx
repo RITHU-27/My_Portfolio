@@ -12,8 +12,21 @@ import SplashScreen from "./components/SplashScreen.jsx";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
 
-  // You can also use this to pre-fetch any critical data if needed
+  useEffect(() => {
+    if (theme === "light") {
+      document.body.classList.add("light-theme");
+    } else {
+      document.body.classList.remove("light-theme");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   const handleLoadingComplete = () => {
     setLoading(false);
   };
@@ -23,7 +36,7 @@ export default function App() {
       <SplashScreen onComplete={handleLoadingComplete} />
       {!loading && (
         <Router>
-          <Navbar />
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
           <main>
             <Routes>
               <Route path="/" element={<Home />} />

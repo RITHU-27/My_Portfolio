@@ -3,10 +3,10 @@ import { skills } from "../data/portfolio.js";
 
 export default function Skills() {
   const skillCategories = [
-    { key: "languages", label: "Languages" },
-    { key: "frontend", label: "Frontend" },
-    { key: "backend", label: "Backend" },
-    { key: "tools", label: "Tools & Utilities" },
+    { key: "languages", label: "Core Compiler Languages" },
+    { key: "frontend", label: "React Tower District (Frontend)" },
+    { key: "backend", label: "Backend Hub Network (Logic & DB)" },
+    { key: "tools", label: "Design District & Neural Utilities" },
   ];
 
   return (
@@ -18,8 +18,8 @@ export default function Skills() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="section__eyebrow">What I work with</p>
-          <h2 className="section__title">Skills &amp; Technologies</h2>
+          <p className="section__eyebrow">DISTRICT SPECIFICATIONS</p>
+          <h2 className="section__title">Skills &amp; Cyber-Grid Assets</h2>
         </motion.div>
 
         <div className="skills__container">
@@ -27,7 +27,7 @@ export default function Skills() {
             <div key={category.key} className="skills__category">
               <h3 className="skills__category-title">{category.label}</h3>
               <div className="skills__grid">
-                {skills[category.key].map((skill, i) => (
+                {skills[category.key]?.map((skill, i) => (
                   <motion.div
                     className="skill"
                     key={skill.name}
