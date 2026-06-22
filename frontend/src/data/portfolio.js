@@ -24,16 +24,29 @@ export const socials = {
   email: "mailto:27rithu10@gmail.com",
 };
 
-export const skills = [
-  { name: "JavaScript", level: 90 },
-  { name: "React", level: 88 },
-  { name: "Node.js", level: 85 },
-  { name: "Express", level: 84 },
-  { name: "MongoDB", level: 80 },
-  { name: "HTML & CSS", level: 90 },
-  { name: "Git & GitHub", level: 82 },
-  { name: "REST APIs", level: 85 },
-];
+export const skills = {
+  languages: [
+    { name: "C", level: 90 },
+    { name: "Python", level: 85 },
+    { name: "Java", level: 80 },
+  ],
+  frontend: [
+    { name: "React", level: 80 },
+    { name: "UI-UX Design", level: 89 },
+    { name: "JavaScript", level: 70 },
+    { name: "HTML & CSS", level: 70 },
+  ],
+  backend: [
+    { name: "Node.js", level: 70 },
+    { name: "Express", level: 75 },
+    { name: "MongoDB", level: 80 },
+  ],
+  tools: [
+    { name: "Git & GitHub", level: 82 },
+    { name: "VS Code", level: 90 },
+    { name: "Figma", level: 90 },
+  ],
+};
 
 export const experience = [
   {

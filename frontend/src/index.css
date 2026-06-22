@@ -403,10 +403,42 @@ h3 {
 }
 
 /* Skills */
+.skills__container {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 28px;
+}
+
+.skills__category {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 28px;
+  border-radius: 16px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.skills__category:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+.skills__category-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
 .skills__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px 40px;
+  grid-template-columns: 1fr;
+  gap: 18px 40px;
 }
 
 .skill__head {
