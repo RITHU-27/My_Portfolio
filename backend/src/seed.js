@@ -68,6 +68,18 @@ const sampleProjects = [
     featured: true,
     order: 5,
   },
+  {
+    title: "TripMates - Travel Planning App",
+    description:
+      "A travel planning app that helps users discover and plan trips with friends, including features like trip planning, expense tracking, and itinerary management.",
+    techStack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "XAMPP"],
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSvoMShbPz6mnYdlJ5af8hIbzo_gV8ysJYznyHv7gnVA&s=10",
+    githubUrl: "https://github.com/RITHU-27/Trip_mates_XAMPP",
+    liveUrl: "",
+    featured: true,
+    order: 1,
+  },
 ];
 
 async function seed() {
