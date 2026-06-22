@@ -25,7 +25,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="section">
+    <section className="section">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

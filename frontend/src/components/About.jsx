@@ -4,7 +4,7 @@ import { profile, experience } from "../data/portfolio.js";
 
 export default function About() {
   return (
-    <section id="about" className="section">
+    <section className="section">
       <div className="container">
         {/* Section Heading */}
         <motion.div

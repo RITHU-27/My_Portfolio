@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiArrowDown } from "react-icons/fi";
 import { SiLeetcode, SiHackerrank } from "react-icons/si";
 import { profile, socials } from "../data/portfolio.js";
 
 export default function Hero() {
   return (
-    <section id="home" className="hero">
+    <section className="hero">
       <div className="container hero__inner">
         <motion.div
           className="hero__content"
@@ -19,12 +20,12 @@ export default function Hero() {
           <p className="hero__tagline">{profile.tagline}</p>
 
           <div className="hero__actions">
-            <a href="#projects" className="btn btn--primary">
+            <Link to="/projects" className="btn btn--primary">
               View My Work
-            </a>
-            <a href="#contact" className="btn btn--ghost">
+            </Link>
+            <Link to="/contact" className="btn btn--ghost">
               Get In Touch
-            </a>
+            </Link>
           </div>
 
           <div className="hero__socials">
@@ -58,9 +59,9 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <a href="#about" className="hero__scroll" aria-label="Scroll down">
+      <Link to="/about" className="hero__scroll" aria-label="Scroll down">
         <FiArrowDown />
-      </a>
+      </Link>
     </section>
   );
 }

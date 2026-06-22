@@ -3,7 +3,7 @@ import { skills } from "../data/portfolio.js";
 
 export default function Skills() {
   return (
-    <section id="skills" className="section section--alt">
+    <section className="section section--alt">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

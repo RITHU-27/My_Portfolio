@@ -30,7 +30,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section section--alt">
+    <section className="section section--alt">
       <div className="container contact">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
