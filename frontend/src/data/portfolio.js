@@ -50,17 +50,24 @@ export const skills = {
 
 export const experience = [
   {
-    role: "",
-    company: "",
-    period: "",
+    role: "BIWEEKLY CODING CHALLENGE WINNER",
+    company: "KEC DEPARTMENT OF COMPUTER SCIENCE AND DESIGN",
+    period: "2025 - 2026",
     description:
-      "",
+      "A biweekly coding competition organized by the Computer Science and Design department, where students compete by solving algorithmic problems to enhance their coding skills and problem-solving abilities.",
   },
   {
-    role: "",
-    company: "",
-    period: "",
+    role: "FRISSON 2K26 Winner",
+    company: "KEC DEPARTMENT OF FOOD TECHNOLOGY",
+    period: "2026",
     description:
-      "",
+      "A paper presentation competition organized by the Food Technology department, where students present research papers on food science and technology topics, fostering innovation and knowledge sharing in the field.",
+  },
+  {
+    role: "CODE-COMBAT Price winner",
+    company: "KEC DEPARTMENT OF COMPUTER SCIENCE AND DESIGN",
+    period: "2025",
+    description:
+      "A competitive coding event organized by the Computer Science and Design department, where students solve algorithmic challenges to enhance their problem-solving skills and coding proficiency.",
   },
 ];

@@ -95,12 +95,16 @@ export default function About() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
           >
+            <h1>Achievements</h1><br /><br />
             {experience.length > 0 ? (
               experience.map((item, idx) => (
+                <>
+                
                 <div
                   className="timeline__item"
                   key={`${item.role}-${item.company}-${idx}`}
                 >
+                  
                   <div className="timeline__dot" />
                   <div className="timeline__content">
                     <span className="timeline__period">{item.period}</span>
@@ -109,6 +113,7 @@ export default function About() {
                     <p>{item.description}</p>
                   </div>
                 </div>
+                </>
               ))
             ) : (
               <p>No experience added yet.</p>
