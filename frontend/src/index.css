@@ -15,7 +15,7 @@
   --max: 1120px;
   --font-mono: 'Space Mono', 'Courier New', monospace;
   --font-title: 'Share Tech Mono', 'Poppins', sans-serif;
-  
+
   /* Grids */
   --grid-line-major: rgba(0, 240, 255, 0.06);
   --grid-line-minor: rgba(0, 240, 255, 0.02);
@@ -34,7 +34,7 @@
   --border: rgba(2, 132, 199, 0.25);
   --border-glow: rgba(2, 132, 199, 0.4);
   --shadow: 0 0 15px rgba(2, 132, 199, 0.08);
-  
+
   /* Grids */
   --grid-line-major: rgba(2, 132, 199, 0.08);
   --grid-line-minor: rgba(2, 132, 199, 0.03);
@@ -293,7 +293,7 @@ h6 {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: 
+  background:
     radial-gradient(1000px 600px at 80% -10%, rgba(0, 240, 255, 0.15), transparent),
     radial-gradient(800px 500px at 0% 20%, rgba(2, 132, 199, 0.15), transparent);
 }
@@ -487,7 +487,7 @@ h6 {
 
 /* Sections */
 .section {
-  padding: 96px 0;
+  padding: 140px 0;
   border-bottom: 1px solid rgba(0, 240, 255, 0.08);
   position: relative;
 }
@@ -740,9 +740,9 @@ h6 {
   position: absolute;
   width: 4px;
   height: 100%;
-  background: linear-gradient(180deg, 
-    var(--primary) 0%, 
-    var(--primary-2) 50%, 
+  background: linear-gradient(180deg,
+    var(--primary) 0%,
+    var(--primary-2) 50%,
     var(--primary) 100%);
   border-radius: 2px;
   box-shadow: 0 0 15px var(--primary-glow);
@@ -763,6 +763,8 @@ h6 {
   50% { opacity: 1; }
 }
 
+/* Base pair now winds/unwinds based on distance from the focused project.
+   --twist and --spread are set inline by Projects.jsx per base pair. */
 .dna-base-pair {
   position: absolute;
   left: 0;
@@ -771,6 +773,24 @@ h6 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transform-style: preserve-3d;
+}
+
+.dna-base-pair.is-active .dna-rung {
+  transform: scaleX(2.2);
+}
+
+.dna-rung {
+  flex: 1;
+  height: 2px;
+  margin: 0 8px;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    transparent,
+    var(--primary-2)
+  );
+  transition: transform 0.8s ease;
 }
 
 .dna-base {
@@ -793,11 +813,11 @@ h6 {
 }
 
 @keyframes dnaGlow {
-  0%, 100% { 
+  0%, 100% {
     transform: scale(1);
     box-shadow: 0 0 10px currentColor;
   }
-  50% { 
+  50% {
     transform: scale(1.3);
     box-shadow: 0 0 20px currentColor;
   }
@@ -809,10 +829,18 @@ h6 {
   padding-bottom: 140px;
 }
 
+/* Project card group dims when not in focus, brightens when active */
 .dna-mutation {
   position: absolute;
   width: 380px;
   z-index: 10;
+  filter: grayscale(0.3) brightness(0.85);
+  transition: filter 0.4s ease;
+}
+
+.dna-mutation.is-active {
+  filter: grayscale(0) brightness(1);
+  z-index: 20;
 }
 
 .dna-mutation--left {
@@ -830,6 +858,7 @@ h6 {
   background: linear-gradient(90deg, var(--primary), transparent);
   top: 50%;
   transform: translateY(-50%);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .dna-mutation--left .dna-connector {
@@ -840,6 +869,10 @@ h6 {
 .dna-mutation--right .dna-connector {
   left: 100%;
   background: linear-gradient(90deg, var(--primary), transparent);
+}
+
+.dna-mutation.is-active .dna-connector {
+  box-shadow: 0 0 10px var(--primary);
 }
 
 .project-card {
@@ -1186,6 +1219,7 @@ h6 {
     left: auto !important;
     right: auto !important;
     top: auto !important;
+    filter: none;
   }
 
   .dna-connector {
