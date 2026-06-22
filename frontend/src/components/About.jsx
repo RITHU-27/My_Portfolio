@@ -27,12 +27,29 @@ export default function About() {
             transition={{ duration: 0.5 }}
           >
             {/* Profile Image */}
-            {profile.image && (
-              <img
-                src={profile.image}
-                alt={profile.name}
-                className="about__image"
-              />
+            {profile.avatarUrl && (
+              <div 
+                style={{ 
+                  position: "relative",
+                  marginBottom: "24px",
+                  border: "1px solid var(--border)",
+                  padding: "4px",
+                  background: "var(--surface)",
+                  maxWidth: "200px"
+                }}
+              >
+                <div style={{ position: "absolute", top: -6, left: -6, color: "var(--primary)", fontFamily: "var(--font-mono)", fontSize: "12px" }}>+</div>
+                <div style={{ position: "absolute", bottom: -10, right: -6, color: "var(--primary)", fontFamily: "var(--font-mono)", fontSize: "12px" }}>+</div>
+                <img
+                  src={profile.avatarUrl.replace("frontend/", "")}
+                  alt={profile.name}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    filter: "grayscale(1) contrast(1.1) brightness(0.9) sepia(0.2) hue-rotate(185deg) saturate(2)"
+                  }}
+                />
+              </div>
             )}
 
             <p>{profile.about}</p>
