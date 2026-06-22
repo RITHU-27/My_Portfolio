@@ -21,6 +21,11 @@ export async function fetchProjects() {
   return data;
 }
 
+export async function fetchMessages() {
+  const { data } = await api.get("/messages");
+  return data;
+}
+
 export async function sendMessage(payload) {
   const { data } = await api.post("/messages", payload);
   return data;
