@@ -2,7 +2,7 @@
 
 export const profile = {
   name: "Rithanyaa Varadharajan",
-  title: "Computer Science and Design Student | Full Stack Developer | AI Enthusiast",
+  title: "UI/UX Designer | Full Stack Developer | AI Enthusiast",
   tagline: "I build web applications, AI-powered solutions, and user-friendly digital experiences.",
   about:
     "I am pursuing BE in Computer Science and Design. My interests lie in Artificial Intelligence, Full Stack Development, and UI/UX Design. I enjoy building impactful solutions for real-world problems.",

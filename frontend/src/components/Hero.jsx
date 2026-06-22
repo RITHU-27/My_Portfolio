@@ -47,10 +47,44 @@ const DISTRICT_DETAILS = {
   }
 };
 
+
 export default function Hero() {
   const [viewMode, setViewMode] = useState("schematic"); // 'schematic' or 'biometric'
   const [selectedNode, setSelectedNode] = useState(null); // 'react', 'node', 'mongodb', 'design', 'ai' or null
   const [helixAngle, setHelixAngle] = useState(0);
+    // ===== TERMINAL EFFECT STATE (ADD HERE) =====
+  const terminalLines = [
+    "UI-UX DESIGNER",
+    "FULL STACK DEVELOPER",
+    "AI ENTHUSIAST",
+    "DATA ANALYST",
+    "CREATIVE CODER",
+    "PROBLEM SOLVER"
+  ];
+
+  const [terminalIndex, setTerminalIndex] = useState(0);
+  const [terminalText, setTerminalText] = useState("");
+
+  // Terminal typing effect
+  useEffect(() => {
+    const currentLine = terminalLines[terminalIndex];
+    let charIndex = 0;
+
+    const typeInterval = setInterval(() => {
+      if (charIndex < currentLine.length) {
+        setTerminalText(currentLine.slice(0, charIndex + 1));
+        charIndex++;
+      } else {
+        clearInterval(typeInterval);
+        setTimeout(() => {
+          setTerminalIndex((prev) => (prev + 1) % terminalLines.length);
+          setTerminalText("");
+        }, 500);
+      }
+    }, 50);
+
+    return () => clearInterval(typeInterval);
+  }, [terminalIndex]);
 
   // Rotate DNA Helix continuously in schematic mode
   useEffect(() => {
@@ -130,16 +164,31 @@ export default function Hero() {
         >
           <p className="hero__greeting">
             <FiCpu style={{ verticalAlign: "middle", marginRight: "6px" }} />
-            COMPUTER SCIENCE + USER EXPERIENCE DESIGN
+            COMPUTER SCIENCE AND DESIGN STUDENT
           </p>
           <h1 className="hero__name">{profile.name}</h1>
-          <h2 className="hero__title">{profile.title}</h2>
-          
-          <p className="hero__tagline" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <FiCornerDownRight style={{ color: "var(--primary)" }} />
-            <span>Built into my code.</span>
-          </p>
-
+                    {/* TERMINAL EFFECT BELOW NAME */}
+          <div
+            style={{
+              marginTop: "12px",
+              fontFamily: "monospace",
+              fontSize: "14px",
+              color: "var(--primary)",
+              letterSpacing: "1px",
+              background: "rgba(0, 0, 0, 0.6)",
+              border: "1px solid var(--border)",
+              borderRadius: "6px",
+              padding: "10px 14px",
+              display: "inline-block",
+              minWidth: "300px"
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "var(--primary-2)" }}>$</span>
+              <span>{terminalText}</span>
+              <span style={{ opacity: 0.7, animation: "blink 1s infinite" }}>█</span>
+            </div>
+          </div>
           <p style={{ opacity: 0.85, fontSize: "0.95rem", margin: "10px 0 20px" }}>
             {profile.tagline}
           </p>
