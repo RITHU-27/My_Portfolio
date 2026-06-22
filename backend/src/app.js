@@ -11,7 +11,7 @@ export function createApp() {
   const app = express();
 
   app.use(helmet());
-  app.use(cors({origin: "https://my-portfolio-3njc6aelx-rithanyaa-v-s-projects.vercel.app/"}));
+  app.use(cors({origin: true}));
   app.use(express.json());
   app.use(morgan("dev"));
 
