@@ -5,7 +5,7 @@ import { connectDB } from "./config/db.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/portfolio";
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://27rithu10_db_user:27rithu@cluster.vqwm1ym.mongodb.net/portfolioDB?retryWrites=true&w=majority&appName=Cluster";
 
 async function start() {
   try {
