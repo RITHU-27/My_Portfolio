@@ -7,30 +7,11 @@ import rateLimit from "express-rate-limit";
 import projectRoutes from "./routes/projectRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
-  "https://my-portfolio-green-six-urdxdgycp9.vercel.app",
-];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
-
 export function createApp() {
   const app = express();
 
   app.use(helmet());
-  app.use(cors(corsOptions));
-  app.options("*", cors(corsOptions));
+  app.use(cors({origin: "https://my-portfolio-3njc6aelx-rithanyaa-v-s-projects.vercel.app/"}));
   app.use(express.json());
   app.use(morgan("dev"));
 
