@@ -11,6 +11,9 @@ async function start() {
   try {
     await connectDB(MONGO_URI);
     const app = createApp();
+    app.get("/", (req, res) => {
+      res.send("Portfolio API is running...");
+    });
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
