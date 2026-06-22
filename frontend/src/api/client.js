@@ -1,6 +1,15 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_URL || "/api";
+const raw = import.meta.env.VITE_API_URL;
+let baseURL;
+if (raw && raw.trim() !== "") {
+  // Ensure deployed base includes the /api prefix and has no trailing slash
+  const cleaned = raw.replace(/\/+$/, "");
+  baseURL = cleaned.endsWith("/api") ? cleaned : `${cleaned}/api`;
+} else {
+  // In dev, use the Vite proxy at /api
+  baseURL = "/api";
+}
 
 const api = axios.create({
   baseURL,
