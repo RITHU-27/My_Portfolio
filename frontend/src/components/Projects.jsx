@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { FiGithub, FiExternalLink, FiLayers } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiLayers, FiGitBranch } from "react-icons/fi";
 import { fetchProjects } from "../api/client.js";
 import { sampleProjects } from "../data/projects.js";
 
@@ -9,6 +9,7 @@ export default function Projects() {
   const [status, setStatus] = useState("loading");
   const [isFallback, setIsFallback] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
+  const [evolutionStage, setEvolutionStage] = useState(0);
 
   const rowHeight = 420;
   const cardRefs = useRef([]);
@@ -74,15 +75,52 @@ export default function Projects() {
     return () => observer.disconnect();
   }, [status, projects]);
 
+  // Evolution stages animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setEvolutionStage((prev) => (prev + 1) % 4);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getEvolutionBadge = (stage) => {
+    const stages = [
+      { label: "GENESIS", color: "#ff007f" },
+      { label: "MUTATION", color: "var(--primary)" },
+      { label: "EVOLUTION", color: "#00ff88" },
+      { label: "APEX", color: "#ffaa00" }
+    ];
+    return stages[stage];
+  };
+
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
+      {/* Blueprint Coordinates */}
+      <div 
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          fontFamily: "var(--font-mono)",
+          fontSize: "9px",
+          color: "var(--primary)",
+          opacity: 0.5,
+          lineHeight: "1.4",
+          pointerEvents: "none"
+        }}
+      >
+        <div>PROJECT_MATRIX // LOADED</div>
+        <div>MUTATION_STAGE // {getEvolutionBadge(evolutionStage).label}</div>
+        <div>DNA_INTEGRITY // STABLE</div>
+      </div>
+
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="section__eyebrow">Some things I’ve built</p>
+          <p className="section__eyebrow">Some things I&apos;ve built</p>
           <h2 className="section__title">Featured Projects</h2>
         </motion.div>
 
@@ -126,10 +164,11 @@ export default function Projects() {
             })}
           </div>
 
-          {/* Project cards */}
+          {/* Project cards with evolution indicators */}
           <div className="dna-projects">
             {projects.map((project, i) => {
               const isActive = i === activeIndex;
+              const evolution = getEvolutionBadge(i % 4);
 
               return (
                 <motion.div
@@ -166,7 +205,32 @@ export default function Projects() {
                     transition={{
                       duration: 0.5,
                     }}
+                    style={{
+                      border: isActive ? `2px solid ${evolution.color}` : "1px solid var(--border)",
+                      boxShadow: isActive ? `0 0 30px ${evolution.color}40` : "none"
+                    }}
                   >
+                    {/* Evolution Badge */}
+                    <div style={{
+                      position: "absolute",
+                      top: "12px",
+                      right: "12px",
+                      padding: "4px 10px",
+                      background: `${evolution.color}20`,
+                      border: `1px solid ${evolution.color}`,
+                      borderRadius: "12px",
+                      fontSize: "10px",
+                      fontFamily: "var(--font-mono)",
+                      fontWeight: "bold",
+                      color: evolution.color,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px"
+                    }}>
+                      <FiGitBranch style={{ fontSize: "10px" }} />
+                      {evolution.label}
+                    </div>
+
                     {project.imageUrl && (
                       <div className="project-card__media">
                         <img
@@ -183,7 +247,10 @@ export default function Projects() {
 
                       <ul className="project-card__tags">
                         {project.techStack?.map((tech) => (
-                          <li key={tech}>{tech}</li>
+                          <li key={tech} style={{
+                            background: `${evolution.color}15`,
+                            border: `1px solid ${evolution.color}40`
+                          }}>{tech}</li>
                         ))}
                       </ul>
 
@@ -193,6 +260,7 @@ export default function Projects() {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noreferrer"
+                            style={{ borderColor: evolution.color }}
                           >
                             <FiGithub /> Code
                           </a>
@@ -203,6 +271,7 @@ export default function Projects() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noreferrer"
+                            style={{ borderColor: evolution.color }}
                           >
                             <FiExternalLink /> Live
                           </a>

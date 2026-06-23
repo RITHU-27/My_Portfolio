@@ -52,6 +52,8 @@ export default function Hero() {
   const [viewMode, setViewMode] = useState("schematic"); // 'schematic' or 'biometric'
   const [selectedNode, setSelectedNode] = useState(null); // 'react', 'node', 'mongodb', 'design', 'ai' or null
   const [helixAngle, setHelixAngle] = useState(0);
+  const [xrayLayer, setXrayLayer] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState(null);
     // ===== TERMINAL EFFECT STATE (ADD HERE) =====
   const terminalLines = [
     "UI-UX DESIGNER",
@@ -364,12 +366,34 @@ export default function Hero() {
                 cursor: "pointer",
                 textTransform: "uppercase",
                 display: "flex",
-                alignItems: "center",
+                    alignItems: "center",
                 justifyContent: "center",
                 gap: "4px"
               }}
             >
               <FiUser /> BIOMETRICS
+            </button>
+            <button
+              onClick={() => setXrayLayer(!xrayLayer)}
+              style={{
+                flex: 1,
+                background: xrayLayer ? "var(--surface-2)" : "none",
+                border: "none",
+                borderRadius: "var(--radius)",
+                color: xrayLayer ? "#ff007f" : "var(--text-muted)",
+                padding: "6px",
+                fontFamily: "var(--font-mono)",
+                fontSize: "9px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                textTransform: "uppercase",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "4px"
+              }}
+            >
+              <FiActivity /> X-RAY
             </button>
           </div>
 
@@ -415,6 +439,52 @@ export default function Hero() {
                     {/* Helix background circle */}
                     <circle cx="140" cy="140" r="130" fill="none" stroke="var(--border)" strokeWidth="0.5" strokeDasharray="3 3" />
                     
+                    {/* X-Ray Layer - Internal Structure */}
+                    {xrayLayer && (
+                      <g style={{ opacity: 0.8 }}>
+                        {/* Internal circuit paths */}
+                        {[...Array(8)].map((_, i) => {
+                          const angle = (i / 8) * Math.PI * 2;
+                          const x1 = 140 + Math.cos(angle) * 50;
+                          const y1 = 140 + Math.sin(angle) * 50;
+                          const x2 = 140 + Math.cos(angle) * 120;
+                          const y2 = 140 + Math.sin(angle) * 120;
+                          return (
+                            <line
+                              key={i}
+                              x1={x1}
+                              y1={y1}
+                              x2={x2}
+                              y2={y2}
+                              stroke="#ff007f"
+                              strokeWidth="1"
+                              strokeDasharray="4 2"
+                              opacity={0.6}
+                            />
+                          );
+                        })}
+                        {/* Core nucleus */}
+                        <circle cx="140" cy="140" r="30" fill="none" stroke="#ff007f" strokeWidth="2" opacity={0.5} />
+                        <circle cx="140" cy="140" r="15" fill="#ff007f" opacity={0.3} />
+                        {/* Data nodes */}
+                        {[...Array(12)].map((_, i) => {
+                          const angle = (i / 12) * Math.PI * 2;
+                          const x = 140 + Math.cos(angle) * 80;
+                          const y = 140 + Math.sin(angle) * 80;
+                          return (
+                            <circle
+                              key={i}
+                              cx={x}
+                              cy={y}
+                              r="3"
+                              fill="#ff007f"
+                              opacity={0.7}
+                            />
+                          );
+                        })}
+                      </g>
+                    )}
+                    
                     {/* Interactive Clickable Nodes */}
                     {nodes.map((node) => {
                       const { xPos, zIndex, opacity, scale } = getHelixNodeCoords(node.y, node.phase);
@@ -425,6 +495,8 @@ export default function Hero() {
                           key={node.key} 
                           style={{ cursor: "pointer", zIndex }}
                           onClick={() => setSelectedNode(node.key)}
+                          onMouseEnter={() => setHoveredNode(node.key)}
+                          onMouseLeave={() => setHoveredNode(null)}
                         >
                           {/* Anchor lines branching out from DNA Center */}
                           {isHovered && (
@@ -439,13 +511,26 @@ export default function Hero() {
                             />
                           )}
 
+                          {/* X-Ray connection lines */}
+                          {xrayLayer && hoveredNode === node.key && (
+                            <line
+                              x1={xPos}
+                              y1={node.y}
+                              x2={140}
+                              y2={140}
+                              stroke="#ff007f"
+                              strokeWidth="1.5"
+                              opacity={0.8}
+                            />
+                          )}
+
                           {/* Node Dot Ring */}
                           <circle
                             cx={xPos}
                             cy={node.y}
                             r={isHovered ? 11 : 7}
                             fill="none"
-                            stroke={isHovered ? "var(--primary-2)" : "var(--primary)"}
+                            stroke={xrayLayer ? "#ff007f" : (isHovered ? "var(--primary-2)" : "var(--primary)")}
                             strokeWidth={isHovered ? 2.5 : 1}
                             style={{ opacity }}
                           />
@@ -455,7 +540,7 @@ export default function Hero() {
                             cx={xPos}
                             cy={node.y}
                             r={isHovered ? 6 : 4}
-                            fill={isHovered ? "var(--primary-2)" : "var(--primary)"}
+                            fill={xrayLayer ? "#ff007f" : (isHovered ? "var(--primary-2)" : "var(--primary)")}
                             style={{ opacity }}
                           />
 
