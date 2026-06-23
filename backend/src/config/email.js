@@ -1,12 +1,23 @@
 import nodemailer from "nodemailer";
 
-// Create email transporter
+// Create email transporter with debug logging
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
+  debug: true,
+  logger: true,
+});
+
+// Verify transporter configuration on startup
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("Email transporter verification failed:", error);
+  } else {
+    console.log("Email transporter is ready to send emails");
+  }
 });
 
 export async function sendEmailToOwner(messageData) {
