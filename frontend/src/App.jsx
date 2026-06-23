@@ -59,14 +59,15 @@ export default function App() {
   };
 
   const handleLoadingComplete = () => {
+    console.log("Splash screen complete, setting loading to false");
     setLoading(false);
   };
 
   return (
-    <>
+    <Router>
       <SplashScreen backendStatus={backendStatus} backendReady={backendReady} onComplete={handleLoadingComplete} />
       {!loading && (
-        <Router>
+        <>
           <Navbar theme={theme} toggleTheme={toggleTheme} />
           <main>
             <Routes>
@@ -80,8 +81,8 @@ export default function App() {
             </Routes>
           </main>
           <Footer />
-        </Router>
+        </>
       )}
-    </>
+    </Router>
   );
 }
