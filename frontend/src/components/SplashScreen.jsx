@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SplashScreen = ({ onComplete }) => {
+const SplashScreen = ({ backendStatus, backendReady, onComplete }) => {
   const [isAnimating, setIsAnimating] = useState(true);
+  const [animationComplete, setAnimationComplete] = useState(false);
   const [statusText, setStatusText] = useState("MUTATING GENETIC SEQUENCE...");
   const [cameraZoom, setCameraZoom] = useState("wide"); // 'wide', 'zoom-in', 'fly-through'
+  const [progress, setProgress] = useState(0);
+  const [pulsePhase, setPulsePhase] = useState(0);
 
   useEffect(() => {
     const statuses = [
@@ -15,8 +18,7 @@ const SplashScreen = ({ onComplete }) => {
       "LOCATING REACT TOWER [HW.01]...",
       "SYNCHRONIZING BACKEND HUB [DB.02]...",
       "SECTOR SCAN: AI NEURAL LAB ACTIVE...",
-      "CAMERA ALIGNMENT: 3D FLY-THROUGH STAGE...",
-      "LANDING ENGINE FIRED. WELCOME USER."
+      "CAMERA ALIGNMENT: 3D FLY-THROUGH STAGE..."
     ];
 
     let statusIdx = 0;
@@ -27,22 +29,57 @@ const SplashScreen = ({ onComplete }) => {
       }
     }, 400);
 
-    // Zoom phases
+    // Progress bar animation - goes to 95% during animation phase
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 95) return 95;
+        return prev + 2;
+      });
+    }, 100);
+
+    // Pulse animation
+    const pulseInterval = setInterval(() => {
+      setPulsePhase((prev) => (prev + 0.1) % (Math.PI * 2));
+    }, 50);
+
+    // Zoom phases - fixed timing for full animation
     const zoomTimer = setTimeout(() => setCameraZoom("zoom-in"), 1200);
     const flyTimer = setTimeout(() => setCameraZoom("fly-through"), 2600);
 
-    const completeTimer = setTimeout(() => {
-      setIsAnimating(false);
-      setTimeout(onComplete, 600); // Allow exit transition
+    // Mark animation as complete after 4.2 seconds
+    const animationCompleteTimer = setTimeout(() => {
+      setAnimationComplete(true);
     }, 4200);
 
     return () => {
       clearInterval(interval);
+      clearInterval(progressInterval);
+      clearInterval(pulseInterval);
       clearTimeout(zoomTimer);
       clearTimeout(flyTimer);
-      clearTimeout(completeTimer);
+      clearTimeout(animationCompleteTimer);
     };
-  }, [onComplete]);
+  }, []);
+
+  // Separate effect to handle backend check after animation completes
+  useEffect(() => {
+    if (!animationComplete) return;
+
+    setStatusText(backendStatus);
+
+    const checkBackendTimer = setInterval(() => {
+      if (backendReady) {
+        setProgress(100);
+        clearInterval(checkBackendTimer);
+        setTimeout(() => {
+          setIsAnimating(false);
+          setTimeout(onComplete, 600);
+        }, 500);
+      }
+    }, 500);
+
+    return () => clearInterval(checkBackendTimer);
+  }, [animationComplete, backendReady, backendStatus, onComplete]);
 
   // Generate DNA Helix Nodes for the animation
   const numDnaNodes = 12;
@@ -95,7 +132,7 @@ const SplashScreen = ({ onComplete }) => {
             color: "var(--primary)"
           }}
         >
-          {/* Cyberpunk Grid Background */}
+          {/* Cyberpunk Grid Background with Scanning Effect */}
           <div
             style={{
               position: "absolute",
@@ -111,7 +148,28 @@ const SplashScreen = ({ onComplete }) => {
               zIndex: 1,
               pointerEvents: "none"
             }}
-          />
+          >
+            {/* Scanning Line */}
+            <motion.div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "2px",
+                background: "linear-gradient(90deg, transparent, var(--primary), transparent)",
+                boxShadow: "0 0 20px var(--primary)"
+              }}
+              animate={{
+                top: ["0%", "100%", "0%"]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          </div>
 
           {/* Perspective grid overlay (ground grid for flight effect) */}
           <div
@@ -154,11 +212,24 @@ const SplashScreen = ({ onComplete }) => {
               <span>SYS_FLIGHT_ALIGN // AR_Z_9841</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", fontFamily: "var(--font-mono)", fontSize: "9px" }}>
-              <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 <span>DNA CITY GENOME INITIALIZER</span>
                 <span style={{ color: "var(--primary-2)", textShadow: "0 0 5px var(--primary-2)", fontWeight: "bold" }}>
                   {statusText}
                 </span>
+                {/* Progress Bar */}
+                <div style={{ width: "200px", height: "4px", background: "rgba(0, 240, 255, 0.2)", borderRadius: "2px", overflow: "hidden" }}>
+                  <motion.div
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      height: "100%",
+                      background: "linear-gradient(90deg, var(--primary), var(--primary-2))",
+                      boxShadow: `0 0 ${10 + Math.sin(pulsePhase) * 5}px var(--primary)`
+                    }}
+                  />
+                </div>
+                <span style={{ fontSize: "8px", opacity: 0.7 }}>{progress}% COMPLETE</span>
               </div>
               <span>COORDS: X={cameraZoom === "wide" ? "0" : cameraZoom === "zoom-in" ? "241" : "480"} Y={cameraZoom === "wide" ? "0" : cameraZoom === "zoom-in" ? "189" : "330"}</span>
             </div>
@@ -176,6 +247,30 @@ const SplashScreen = ({ onComplete }) => {
               position: "relative"
             }}
           >
+            {/* Floating Data Particles */}
+            {[...Array(20)].map((_, i) => (
+              <motion.circle
+                key={i}
+                r={Math.random() * 2 + 1}
+                fill={i % 2 === 0 ? "var(--primary)" : "var(--primary-2)"}
+                initial={{
+                  cx: Math.random() * 500,
+                  cy: Math.random() * 400,
+                  opacity: 0
+                }}
+                animate={{
+                  cx: Math.random() * 500,
+                  cy: Math.random() * 400,
+                  opacity: [0, 0.8, 0]
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
             {/* Spinning DNA Helix Segment in Center */}
             <g>
               {/* Helix Strand A */}

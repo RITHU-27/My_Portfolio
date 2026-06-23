@@ -8,10 +8,14 @@ import Skills from "./pages/Skills.jsx";
 import Projects from "./pages/Projects.jsx";
 import Contact from "./pages/Contact.jsx";
 import Admin from "./pages/Admin.jsx";
+import Certifications from "./pages/Certifications.jsx";
 import SplashScreen from "./components/SplashScreen.jsx";
+import api from "./api/client.js";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [backendReady, setBackendReady] = useState(false);
+  const [backendStatus, setBackendStatus] = useState("INITIALIZING...");
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
@@ -23,6 +27,33 @@ export default function App() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Check backend health on mount
+  useEffect(() => {
+    const checkBackend = async () => {
+      setBackendStatus("CONNECTING TO BACKEND...");
+      try {
+        await api.get("/health");
+        setBackendStatus("BACKEND CONNECTED");
+        setBackendReady(true);
+      } catch (err) {
+        console.error("Backend health check failed:", err);
+        setBackendStatus("BACKEND UNAVAILABLE - PROCEEDING ANYWAY");
+        setTimeout(() => setBackendReady(true), 1500);
+      }
+    };
+    
+    // Fallback timeout - proceed after 5 seconds regardless
+    const fallbackTimer = setTimeout(() => {
+      if (!backendReady) {
+        setBackendStatus("TIMEOUT - PROCEEDING");
+        setBackendReady(true);
+      }
+    }, 5000);
+    
+    checkBackend();
+    return () => clearTimeout(fallbackTimer);
+  }, []);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
@@ -33,7 +64,7 @@ export default function App() {
 
   return (
     <>
-      <SplashScreen onComplete={handleLoadingComplete} />
+      <SplashScreen backendStatus={backendStatus} backendReady={backendReady} onComplete={handleLoadingComplete} />
       {!loading && (
         <Router>
           <Navbar theme={theme} toggleTheme={toggleTheme} />
@@ -43,6 +74,7 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/skills" element={<Skills />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/certifications" element={<Certifications />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/admin/messages" element={<Admin />} />
             </Routes>

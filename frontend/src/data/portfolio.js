@@ -71,3 +71,92 @@ export const experience = [
       "A competitive coding event organized by the Computer Science and Design department, where students solve algorithmic challenges to enhance their problem-solving skills and coding proficiency.",
   },
 ];
+
+export const achievements = [
+  {
+    title: "BIWEEKLY CODING CHALLENGE WINNER",
+    organization: "KEC Department of Computer Science and Design",
+    date: "2025 - 2026",
+    description: "Consistently won biweekly coding competitions by solving complex algorithmic problems.",
+    category: "Coding"
+  },
+  {
+    title: "FRISSON 2K26 Winner",
+    organization: "KEC Department of Food Technology",
+    date: "2026",
+    description: "First place in paper presentation competition on food science and technology.",
+    category: "Research"
+  },
+  {
+    title: "CODE-COMBAT Winner",
+    organization: "KEC Department of Computer Science and Design",
+    date: "2025",
+    description: "Winner of competitive coding event demonstrating problem-solving excellence.",
+    category: "Coding"
+  },
+  {
+    title: "270+ Problems Solved",
+    organization: "LeetCode",
+    date: "Ongoing",
+    description: "Solved over 270 algorithmic problems on LeetCode platform.",
+    category: "Practice"
+  },
+  {
+    title: "9.20 CGPA",
+    organization: "Kongu Engineering College",
+    date: "Current",
+    description: "Maintaining excellent academic performance with 9.20 CGPA.",
+    category: "Academic"
+  }
+];
+
+export const certifications = [
+  {
+    title: "NPTEL - Python for Data Science",
+    issuer: "IIT Madras",
+    date: "2024",
+    credentialId: "NPTEL24CS123",
+    description: "Comprehensive course covering Python fundamentals, data manipulation, visualization, and machine learning basics.",
+    category: "Data Science"
+  },
+  {
+    title: "Full Stack Web Development",
+    issuer: "Coursera",
+    date: "2024",
+    credentialId: "COURSERA-FS-456",
+    description: "Complete full-stack development program including React, Node.js, MongoDB, and deployment strategies.",
+    category: "Web Development"
+  },
+  {
+    title: "UI/UX Design Fundamentals",
+    issuer: "Figma",
+    date: "2023",
+    credentialId: "FIGMA-UX-789",
+    description: "Mastered design principles, prototyping, user research, and creating intuitive digital experiences.",
+    category: "Design"
+  },
+  {
+    title: "Machine Learning Specialization",
+    issuer: "Stanford University",
+    date: "2024",
+    credentialId: "STAN-ML-101",
+    description: "Deep dive into supervised learning, unsupervised learning, neural networks, and practical ML applications.",
+    category: "Artificial Intelligence"
+  },
+  {
+    title: "Cloud Computing Essentials",
+    issuer: "AWS",
+    date: "2024",
+    credentialId: "AWS-CLOUD-202",
+    description: "Fundamental cloud concepts, AWS services, deployment, and security best practices.",
+    category: "Cloud"
+  },
+  {
+    title: "Cybersecurity Basics",
+    issuer: "Google",
+    date: "2023",
+    credentialId: "GOOG-SEC-303",
+    description: "Introduction to network security, threat analysis, and security protocols.",
+    category: "Security"
+  }
+];
