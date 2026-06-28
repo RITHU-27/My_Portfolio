@@ -16,7 +16,7 @@ const sampleProjects = [
     imageUrl:
       "https://smartinfovision.shop/cdn/shop/files/5_da6dc713-b1c5-4b1f-ae67-eed70b7f01cb.png?v=1760533534&width=1445",
     githubUrl: "https://github.com/RITHU-27/Smart-student-hub_MERN",
-    liveUrl: "https://vercel.com/rithanyaa-v-s-projects/smart-student-hub-mern/AvYgpHhu5CfDEmV43MjWQzBkGyMN",
+    liveUrl: "https://smart-student-hub-mern-git-main-rithanyaa-v-s-projects.vercel.app/",
     featured: true,
     order: 1,
   },
